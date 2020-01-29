@@ -34,7 +34,7 @@ function paginateShoppingItems(page) {
     });
 }
 
-paginateShoppingItems(2);
+//paginateShoppingItems(2);
 
 function itemsAddedDaysAgo(daysAgo){
   knexInstance
@@ -47,4 +47,17 @@ function itemsAddedDaysAgo(daysAgo){
     });
 }
 
-itemsAddedDaysAgo(3);
+//itemsAddedDaysAgo(3);
+
+function totalCostofCategories () {
+  knexInstance
+    .select('category')
+    .from('shopping_list')
+    .sum('price AS sum')
+    .groupBy('category')
+    .then(res => {
+      console.log(res)
+    })
+}
+
+totalCostofCategories();
