@@ -24,14 +24,27 @@ function paginateShoppingItems(page) {
   const itemsPerPage = 6;
   const offset = itemsPerPage * (page -1);
   knexInstance
-      .select('*')
-      .from('shopping_list')
-      .limit(itemsPerPage)
-      .offset(offset)
-      .then(res => {
-        console.log(res);
-        console.log('Page number:', {page});
-      })
+    .select('*')
+    .from('shopping_list')
+    .limit(itemsPerPage)
+    .offset(offset)
+    .then(res => {
+      console.log(res);
+      console.log('Page number:', {page});
+    });
 }
 
 paginateShoppingItems(2);
+
+function itemsAddedDaysAgo(daysAgo){
+  knexInstance
+    .select('*')
+    .from('shopping_list')
+    .where('date_added', '>', knexInstance.raw(`now() - '?? days':: INTERVAL`, daysAgo))
+    .then(res => {
+      console.log(res);
+      console.log('Days Ago:', {daysAgo});
+    });
+}
+
+itemsAddedDaysAgo(3);
