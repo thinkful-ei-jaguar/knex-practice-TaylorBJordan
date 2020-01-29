@@ -18,4 +18,20 @@ function searchItem(searchTerm) {
     });
 }
 
-searchItem('kale');
+//searchItem('kale');
+
+function paginateShoppingItems(page) {
+  const itemsPerPage = 6;
+  const offset = itemsPerPage * (page -1);
+  knexInstance
+      .select('*')
+      .from('shopping_list')
+      .limit(itemsPerPage)
+      .offset(offset)
+      .then(res => {
+        console.log(res);
+        console.log('Page number:', {page});
+      })
+}
+
+paginateShoppingItems(2);
